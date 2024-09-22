@@ -5,7 +5,7 @@ import './games.css'
 
 let game: any = null;
 
-export const Games = ({ setScore, setBestScore, score, bestScore }) => {
+export const Games = ({ setScore, setBestScore, score, bestScore, }) => {
   const isCanvas = useRef(null);
   // const [score, setScore] = useState(0);  // const [bestScore, setBestScore] = useState(0);
   let getScore = () => {
@@ -16,10 +16,14 @@ export const Games = ({ setScore, setBestScore, score, bestScore }) => {
     setBestScore(game.getBestScore())
     console.log('>>>FlappyBird', game.getBestScore());
   }
+  let gameOver = (v: number) => {
+    console.log('>>>gameOver', v);
+  }
+
   useEffect(() => {
     //获取画布dom
     //  this.canvas = document.getElementById("canvas");
-    game = new FlappyBird(isCanvas.current);
+    game = new FlappyBird(isCanvas.current, gameOver);
 
     game.init();
   }, [])

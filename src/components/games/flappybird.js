@@ -162,9 +162,9 @@ Pipe.prototype.move = function a() {
   this.left -= this.gameIns.SpeedX;
   this.left < -50 && (this.gameIns.pipeList[this.id] = null);
 };
-var Game = function a(isCanvasDom) {
-  this.canvas = isCanvasDom;
-  //   this.canvas = document.getElementById("canvas");
+var Game = function c(a, b) {
+  this.gameOverCallback = b;
+  this.canvas = a;
   this.ctx = this.canvas.getContext("2d");
   this.width = document.body.clientWidth;
   this.height = document.body.clientHeight;
@@ -190,12 +190,12 @@ var Game = function a(isCanvasDom) {
   this.s_point = null;
   this.s_hit = null;
   this.eventType = { start: isPC() ? "mousedown" : "touchstart" };
-  var b = window.devicePixelRatio || 1;
+  var d = window.devicePixelRatio || 1;
   this.canvas.style.width = this.width + "px";
   this.canvas.style.height = this.height + "px";
-  this.canvas.width = this.width * b;
-  this.canvas.height = this.height * b;
-  this.ctx.scale(b, b);
+  this.canvas.width = this.width * d;
+  this.canvas.height = this.height * d;
+  this.ctx.scale(d, d);
 };
 Game.prototype.init = function a() {
   var b = this;
@@ -286,9 +286,6 @@ Game.prototype.drawScorePanel = function a() {
 Game.prototype.getScore = function a() {
   return this.score;
 };
-Game.prototype.getBestScore = function a() {
-  return this.bestScore;
-};
 Game.prototype.drawMedal = function a() {
   this.score < 20
     ? this.shape.draw(
@@ -350,6 +347,7 @@ Game.prototype.gameOver = function a() {
   this.stop();
   setTimeout(function () {
     b.drawGameOver();
+    b.gameOverCallback(b.score);
   }, 1000);
   setTimeout(function () {
     b.drawBg();
