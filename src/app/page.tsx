@@ -1,9 +1,10 @@
 "use client";
 
 import Connect from "../components/Connect";
-import { A } from "../components/A";
 import { BB } from "../components/BB.tsx";
 import { Games } from "../components/games/Games";
+import { TopList } from "../components/TopList.tsx";
+import { SubmitScore } from "../components/SubmitScore.tsx";
 import { useState } from "react";
 
 function App() {
@@ -12,17 +13,21 @@ function App() {
   return (
     <>
       <div className="relative  w-full h-full">
-        <div className="is-left absolute z-50">
+        <div className="is-left z-50">
           <Connect />
-          <A />
-          <BB score={score} bestScore={bestScore} />
+          <BB />
+          <TopList />
+          <SubmitScore />
         </div>
-        <div className="is-right" >
-          <Games setScore={setScore} setBestScore={setBestScore} score={score} bestScore={bestScore} />
+        <div className="is-right">
+          <Games
+            setScore={setScore}
+            setBestScore={setBestScore}
+            score={score}
+            bestScore={bestScore}
+          />
         </div>
-
       </div>
-
     </>
   );
 }

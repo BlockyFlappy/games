@@ -3,36 +3,30 @@ import { useWriteContract, useAccount } from "wagmi";
 
 import { wagmiContractConfig } from "./contracts";
 
-export function BB() {
+export function SubmitScore() {
+  const score = 5;
   const { data, error, isPending, isError, writeContract } = useWriteContract();
   const { addresses } = useAccount();
 
   console.log(addresses);
-  console.log("------------");
-  console.log(data);
-  console.log(error);
-  console.log(isPending);
 
   return (
     <div>
       <button
+        className="border border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         onClick={() =>
           writeContract({
             ...wagmiContractConfig,
-            functionName: "registerPlayer",
-            // args: [addresses?.[0], "UserNameNorman"],
-            args: ["UserNameIsNorman"],
+            functionName: "submitScore",
+            args: [score],
           })
         }
       >
-        click me!
+        click me Score
       </button>
       <div>{data}</div>
       <div>{isPending}</div>
       <div>{isError}</div>
-      {/* <div>
-        游戏值{score}-{bestScore}
-      </div> */}
     </div>
   );
 }
